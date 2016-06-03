@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RecipeProject</title>
+  <title>Recipes Share</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <nav class='navbar navbar-default'>
-    <%= link_to "Recipe Box", root_path %>
-
+    <h1><%= link_to "Recipes Share", root_path %></h1>
+    <% if user_signed_in? %>
+      <ul class='nav navbar-right navbar-nav'>
+        <li>
+           <%= link_to "New Recipe", new_recipe_path %>
+        </li>
+        <li>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        </li>
+      </ul>
+      <% else %>
+      <ul class ='nav navbar-right navbar-nav'>
+        <li>
+          <%= link_to "Sign Up", new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to "Sign In", new_user_session_path %>
+        </li>
+      </ul>
+      <% end %>
   </nav>
   <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, class: "alert" %>

@@ -1,15 +1,19 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :show, :destroy]
+  before_action :authenticate_user!
+
   def index
-    @recipes = Recipe.all
+    @recipe = current_user.recipes
+    @all_recipes = Recipe.all
+    @user = User.find_by(params[:id])
   end
 
   def new
-    @recipe = Recipe.new
+    @recipe = current_user.recipes.build
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
       redirect_to @recipe
     else
@@ -38,11 +42,11 @@ class RecipesController < ApplicationController
 
   private
 
-  def set_recipe
-    @recipe = Recipe.find(params[:id])
-  end
+	def set_recipe
+		@recipe = Recipe.find(params[:id])
+	end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :image, ingredients_attributes: [:id, :name, :_destroy], directions_attributes: [:id, :step, :_destroy])
+    params.require(:recipe).permit(:title, :description, :image, category_ids:[], ingredients_attributes: [:id, :name, :_destroy], directions_attributes: [:id, :step, :_destroy])
   end
 end

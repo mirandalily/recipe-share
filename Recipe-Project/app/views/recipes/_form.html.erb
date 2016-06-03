@@ -12,21 +12,46 @@
       </li>
     <% end %>
   </ul>
-  <br />
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :image %>
-  <%= f.submit %>
-  <br />
-  <h3>Ingredients</h3>
-  <%= f.simple_fields_for :ingredients do |ingredient| %>
-    <%= render 'ingredient_fields', f: ingredient %>
-  <% end %>
-  <%= link_to_add_association 'Add Ingredient', f, :ingredients, class: "btn btn-default add-button" %>
 
-  <h3>Directions</h3>
-  <%= f.simple_fields_for :directions do |direction| %>
-    <%= render 'direction_fields', f: direction %>
-  <% end %>
-  <%= link_to_add_association 'Add Step', f, :directions, class: "btn btn-default add-button" %>
+  <br />
+
+  <div class='form-new'>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :image %>
+  </div>
+
+  <br />
+    <h3>Category:</h3>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :title %>
+  <br />
+
+  <div class="row">
+    <div class='col-md-6'>
+      <div class="ingredients-title">
+        <h3>Ingredients:</h3>
+      </div>
+      <div id="ingredients">
+        <%= f.simple_fields_for :ingredients do |ingredient| %>
+          <%= render 'ingredient_fields', f: ingredient %>
+        <% end %>
+        <%= link_to_add_association 'Add Ingredient', f, :ingredients, class: "btn btn-default add-button" %>
+      </div>
+    </div>
+
+    <div class='directions col-md-4'>
+      <div class="directions-title">
+        <h3>Directions:</h3>
+      </div>
+      <div id="directions">
+        <%= f.simple_fields_for :directions do |direction| %>
+          <%= render 'direction_fields', f: direction %>
+        <% end %>
+        <%= link_to_add_association 'Add Step', f, :directions, class: "btn btn-default add-button add-step" %>
+      </div>
+    </div>
+  </div>
+
+  <%= f.button :submit, class: 'btn-primary form-submit' %>
+
 <% end %>

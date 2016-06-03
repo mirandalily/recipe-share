@@ -1,26 +1,52 @@
-<h2><%= @recipe.title%></h2>
-<%= image_tag @recipe.image.url(:medium), class: "recipe_image" %>
-<p>
-  <%= @recipe.description %>
-</p>
-<br />
-<h2>Ingredients</h2>
-<ul>
-  <% @recipe.ingredients.each do |ingredient| %>
-    <li>
-      <%= ingredient.name %>
-    </li>
-  <% end %>
-</ul>
-<br />
-<h2>Directions</h2>
-<ul>
-  <% @recipe.directions.each do |direction| %>
-    <li>
-      <%= direction.step %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to "Back", root_path, class: "btn btn-default" %>
-<%= link_to "Edit", edit_recipe_path, class: "btn btn-default" %>
-<%= link_to "Delete", recipe_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
+<div class='main-content'>
+  <div class='show-title-image'>
+    <h3><%= @recipe.title%></h2>
+    <%= image_tag @recipe.image.url(:medium), class: "recipe_image" %>
+  </div>
+
+  <div class='show-categories'>
+    <h3>Categories:</h3><%= @recipe.categories.map { |category| category.title }.join(", ") %>
+  </div>
+  <br />
+
+  <div class='show-description'>
+    <h3>Description:</h3>
+    <p>
+      <%= @recipe.description %>
+    </p>
+  </div>
+
+  <div class='show-ingredients-directions'>
+
+    <div class='show-ingredients'>
+      <h3>Ingredients</h3>
+      <ul>
+        <% @recipe.ingredients.each do |ingredient| %>
+          <li>
+            <%= ingredient.name %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <br />
+
+    <div class='show-directions'>
+      <h3>Directions</h3>
+      <ul>
+        <% @recipe.directions.each do |direction| %>
+          <li>
+            <%= direction.step %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class='show-links'>
+    <%= link_to "Back", root_path, class: "btn btn-default" %>
+    <%= link_to "Edit", edit_recipe_path, class: "btn btn-default" %>
+    <%= link_to "Delete", recipe_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
+  </div>
+
+</div>
