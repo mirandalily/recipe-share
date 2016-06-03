@@ -1,0 +1,32 @@
+<%= simple_form_for @recipe, html: { multipart: true } do |f| %>
+  <% if @recipe.errors.any? %>
+    <p>
+      <%= @recipe.errors.count %> prevented your recipe from being saved.
+    </p>
+  <% end %>
+  <br />
+  <ul>
+    <% @recipe.errors.full_messages.each do |msg| %>
+      <li>
+        <%= msg %>
+      </li>
+    <% end %>
+  </ul>
+  <br />
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :image %>
+  <%= f.submit %>
+  <br />
+  <h3>Ingredients</h3>
+  <%= f.simple_fields_for :ingredients do |ingredient| %>
+    <%= render 'ingredient_fields', f: ingredient %>
+  <% end %>
+  <%= link_to_add_association 'Add Ingredient', f, :ingredients, class: "btn btn-default add-button" %>
+
+  <h3>Directions</h3>
+  <%= f.simple_fields_for :directions do |direction| %>
+    <%= render 'direction_fields', f: direction %>
+  <% end %>
+  <%= link_to_add_association 'Add Step', f, :directions, class: "btn btn-default add-button" %>
+<% end %>
