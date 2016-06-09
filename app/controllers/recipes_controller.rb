@@ -3,9 +3,13 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @recipe = current_user.recipes
-    @all_recipes = Recipe.all
-    @user = User.find_by(params[:id])
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @recipes = @category.recipes
+    else
+      @user_recipes = current_user.recipes
+      @recipes = Recipe.all
+    end
   end
 
   def new
@@ -47,6 +51,6 @@ class RecipesController < ApplicationController
 	end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :image, category_ids:[], ingredients_attributes: [:id, :name, :_destroy], directions_attributes: [:id, :step, :_destroy])
+    params.require(:recipe).permit(:title, :description, :image, category_ids: [], categories_attributes: [:title], ingredients_attributes: [:id, :name, :_destroy], directions_attributes: [:id, :step, :_destroy])
   end
 end

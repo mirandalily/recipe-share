@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20160604004204) do
     t.integer "recipe_id"
   end
 
+  add_index "recipe_categories", ["category_id"], name: "index_recipe_categories_on_category_id"
+  add_index "recipe_categories", ["recipe_id"], name: "index_recipe_categories_on_recipe_id"
+
   create_table "recipes", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
