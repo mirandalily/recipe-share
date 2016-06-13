@@ -8,21 +8,25 @@ class Recipe < ActiveRecord::Base
   validates :description, presence: true
   has_attached_file :image, styles: { medium: "200x200#"}
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
-  accepts_nested_attributes_for :ingredients,
-  															reject_if: proc { |attributes| attributes['name'].blank? },
-  															allow_destroy: true
- 	accepts_nested_attributes_for :directions,
-  															reject_if: proc { |attributes| attributes['step'].blank? },
-  															allow_destroy: true
+  accepts_nested_attributes_for :ingredients
+  accepts_nested_attributes_for :directions
+
 
   def self.recent
     order("recipes.updated_at DESC")
   end
 
-  def categories_attributes=(category_attributes)
-    category_attributes.values.each do |category_attributes|
-      category = Category.find_or_create_by(category_attributes)
-      self.categories << category
+  def ingredients_attributes=(ingredient_attributes)
+    ingredient_attributes.values.each do |ingredient_attribute|
+      ingredient = Ingredient.find_or_create_by(ingredient_attribute) if ingredient_attribute[:name].present?
+      self.ingredients << ingredient if ingredient
+    end
+  end
+
+  def directions_attributes=(direction_attributes)
+    direction_attributes.values.each do |direction_attribute|
+      direction = Direction.find_or_create_by(direction_attribute) if direction_attribute[:step].present?
+      self.directions << direction if direction
     end
   end
 

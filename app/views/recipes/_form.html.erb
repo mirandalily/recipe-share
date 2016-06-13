@@ -1,4 +1,4 @@
-<%= simple_form_for @recipe, html: { multipart: true } do |f| %>
+<%= simple_form_for @recipe do |f| %>
   <% if @recipe.errors.any? %>
     <p>
       <%= @recipe.errors.count %> prevented your recipe from being saved.
@@ -16,8 +16,8 @@
   <br />
 
   <div class='form-new'>
-    <%= f.input :title %>
-    <%= f.input :description %>
+    Title: <%= f.text_field :title %>
+    Directions: <%= f.text_area :description %>
     <%= f.input :image %>
   </div>
 
@@ -32,10 +32,14 @@
         <h3>Ingredients:</h3>
       </div>
       <div id="ingredients">
-        <%= f.simple_fields_for :ingredients do |ingredient| %>
-          <%= render 'ingredient_fields', f: ingredient %>
+        <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
+          Ingredient: <%= ingredients_fields.text_field :name %>
+          <br />
         <% end %>
-        <%= link_to_add_association 'Add Ingredient', f, :ingredients, class: "btn btn-default add-button" %>
+        <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
+          Ingredient: <%= ingredients_fields.text_field :name %>
+          <br />
+        <% end %>
       </div>
     </div>
 
@@ -44,10 +48,14 @@
         <h3>Directions:</h3>
       </div>
       <div id="directions">
-        <%= f.simple_fields_for :directions do |direction| %>
-          <%= render 'direction_fields', f: direction %>
+        <%= f.fields_for :directions, @recipe.directions.build do |directions_fields| %>
+          Step: <%= directions_fields.text_field :step %>
+          <br />
         <% end %>
-        <%= link_to_add_association 'Add Step', f, :directions, class: "btn btn-default add-button add-step" %>
+        <%= f.fields_for :directions, @recipe.directions.build do |directions_fields| %>
+          Step: <%= directions_fields.text_field :step %>
+          <br />
+        <% end %>
       </div>
     </div>
   </div>
