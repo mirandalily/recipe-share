@@ -36,6 +36,7 @@
           Ingredient: <%= ingredients_fields.text_field :name %>
           <br />
         <% end %>
+        <br />
         <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
           Ingredient: <%= ingredients_fields.text_field :name %>
           <br />

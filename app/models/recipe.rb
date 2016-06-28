@@ -1,7 +1,9 @@
 class Recipe < ActiveRecord::Base
+  has_many :comments
   has_many :recipe_categories
   has_many :categories, through: :recipe_categories
-  has_many :ingredients
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
   has_many :directions
   belongs_to :user
   validates :title, presence: true
@@ -19,7 +21,7 @@ class Recipe < ActiveRecord::Base
   def ingredients_attributes=(ingredient_attributes)
     ingredient_attributes.values.each do |ingredient_attribute|
       ingredient = Ingredient.find_or_create_by(ingredient_attribute) if ingredient_attribute[:name].present?
-      self.ingredients << ingredient if ingredient
+      recipe_ingredient = RecipeIngredient.create(recipe_id: self.id, ingredient_id: ingredient.id) if ingredient
     end
   end
 
@@ -30,4 +32,11 @@ class Recipe < ActiveRecord::Base
     end
   end
 
+  def comment_attributes=(comment)
+    if comment.content != nil || ''
+      @comment = Comment.new(user_id: current_user)
+      self.comments << @comment
+      @comment.save
+    end
+  end
 end

@@ -38,6 +38,8 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @user = current_user
   end
 
   def destroy
@@ -52,6 +54,6 @@ class RecipesController < ApplicationController
 	end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :image, category_ids: [], ingredients_attributes: [:id, :name], directions_attributes: [:id, :step])
+    params.require(:recipe).permit(:title, :description, :image, category_ids: [],ingredients_attributes: [:id, :name], directions_attributes: [:id, :step], :comments_attributes => [:content, :user_id])
   end
 end

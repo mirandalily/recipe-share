@@ -5,7 +5,7 @@
   </div>
 
   <div class='show-categories'>
-    <h3>Categories:</h3><%= @recipe.categories.map { |category| category.title }.join(", ") %>
+    <h3>Categories:</h3><%= @recipe.categories.map { |category| link_to category, category.title }.join(", ") %>
   </div>
   <br />
 
@@ -46,9 +46,21 @@
   <div class='show-links'>
     <%= link_to "Back", root_path, class: "btn btn-default" %>
     <% if current_user == @recipe.user %>
-      <%= link_to "Edit", edit_recipe_path, class: "btn btn-default" %>
-      <%= link_to "Delete", recipe_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
+      <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-default" %>
+      <%= link_to "Delete", recipe_path(@recipe), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
     <% end %>
   </div>
+  <br />
+  <br />
+  <h3>Leave a comment: </h3>
+  <br />
+
+  <%=form_for [@user, @recipe, @comment] do |f| %>
+  <%= render partial: "comments/comments_form", locals: {f: f} %>
+<% end %>
+  <br />
+  <br />
+  <%= render partial: "comments/comments_display", locals: {user: @user,recipe: @recipe} %>
+
 
 </div>
