@@ -19,6 +19,10 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = current_user.recipes.build(recipe_params)
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @recipe.categories = @category
+    end
     if @recipe.save
       redirect_to @recipe
     else
@@ -38,8 +42,10 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @recipe = Recipe.find(params[:id])
     @comment = Comment.new
     @user = current_user
+    @category = Category.find(params[:id])
   end
 
   def destroy

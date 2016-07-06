@@ -5,7 +5,9 @@
   </div>
 
   <div class='show-categories'>
-    <h3>Categories:</h3><%= @recipe.categories.map { |category| link_to category, category.title }.join(", ") %>
+    <h3>Categories:</h3><%= @recipe.categories.each do |category| %>
+      <%= link_to category.title, category_path(category) %>
+    <% end %>
   </div>
   <br />
 
