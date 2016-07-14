@@ -1,4 +1,4 @@
-<%= simple_form_for @recipe do |f| %>
+<%= simple_form_for [@category, @recipe] do |f| %>
   <% if @recipe.errors.any? %>
     <p>
       <%= @recipe.errors.count %> prevented your recipe from being saved.
@@ -32,11 +32,16 @@
         <h3>Ingredients:</h3>
       </div>
       <div id="ingredients">
+
         <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
           Ingredient: <%= ingredients_fields.text_field :name %>
           <br />
+          <%= ingredients_fields.fields_for :recipe_ingredients, @recipe.recipe_ingredients.build do |fff| %>
+            Quantity: <%= fff.text_field :quantity %>
+          <% end %>
         <% end %>
         <br />
+
         <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
           Ingredient: <%= ingredients_fields.text_field :name %>
           <br />

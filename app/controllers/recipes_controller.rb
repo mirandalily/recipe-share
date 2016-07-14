@@ -15,13 +15,17 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = current_user.recipes.build
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+    end
   end
 
   def create
     @recipe = current_user.recipes.build(recipe_params)
+
     if params[:category_id]
       @category = Category.find(params[:category_id])
-      @recipe.categories = @category
+      @recipe.categories << @category
     end
     if @recipe.save
       redirect_to @recipe
@@ -45,7 +49,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @comment = Comment.new
     @user = current_user
-    @category = Category.find(params[:id])
+    @categories = @recipe.categories
   end
 
   def destroy
@@ -60,6 +64,6 @@ class RecipesController < ApplicationController
 	end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :image, category_ids: [],ingredients_attributes: [:id, :name], directions_attributes: [:id, :step], :comments_attributes => [:content, :user_id])
+    params.require(:recipe).permit(:title, :description, :image, category_ids: [], ingredients_attributes: [:id, :name], directions_attributes: [:id, :step], recipe_ingredients_attributes: [:quantity])
   end
 end

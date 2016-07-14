@@ -12,6 +12,8 @@ class Recipe < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   accepts_nested_attributes_for :ingredients
   accepts_nested_attributes_for :directions
+  accepts_nested_attributes_for :recipe_ingredients
+
 
 
   def self.recent
@@ -21,7 +23,7 @@ class Recipe < ActiveRecord::Base
   def ingredients_attributes=(ingredient_attributes)
     ingredient_attributes.values.each do |ingredient_attribute|
       ingredient = Ingredient.find_or_create_by(ingredient_attribute) if ingredient_attribute[:name].present?
-      recipe_ingredient = RecipeIngredient.create(recipe_id: self.id, ingredient_id: ingredient.id) if ingredient
+      self.ingredients << ingredient if ingredient
     end
   end
 
