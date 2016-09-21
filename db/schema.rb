@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628185028) do
-
-  create_table "categories", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160916221224) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -25,28 +19,14 @@ ActiveRecord::Schema.define(version: 20160628185028) do
     t.text    "content"
   end
 
-  create_table "directions", force: :cascade do |t|
-    t.text     "step"
+  create_table "ingredients", force: :cascade do |t|
+    t.string   "name"
     t.integer  "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "directions", ["recipe_id"], name: "index_directions_on_recipe_id"
-
-  create_table "ingredients", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "recipe_categories", force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "recipe_id"
-  end
-
-  add_index "recipe_categories", ["category_id"], name: "index_recipe_categories_on_category_id"
-  add_index "recipe_categories", ["recipe_id"], name: "index_recipe_categories_on_recipe_id"
+  add_index "ingredients", ["recipe_id"], name: "index_ingredients_on_recipe_id"
 
   create_table "recipe_ingredients", force: :cascade do |t|
     t.integer "ingredient_id"
@@ -61,12 +41,21 @@ ActiveRecord::Schema.define(version: 20160628185028) do
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
+    t.text     "instructions"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+  end
+
+  create_table "user_comments", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "recipe_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

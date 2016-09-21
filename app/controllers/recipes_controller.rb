@@ -1,35 +1,28 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!
+  before_action :set_user, only:[:index,:show]
 
   def index
-    if params[:category_id]
-      @category = Category.find(params[:category_id])
-      @recipes = @category.recipes
-      @user_recipes = current_user.recipes
-    else
       @user_recipes = current_user.recipes
       @recipes = Recipe.recent.all
-    end
   end
 
   def new
-    @recipe = current_user.recipes.build
-    if params[:category_id]
-      @category = Category.find(params[:category_id])
-    end
+    @recipe = Recipe.new
+    @recipe.ingredients.build
+    @ingredients = Ingredient.all
   end
 
   def create
-    @recipe = current_user.recipes.build(recipe_params)
-
-    if params[:category_id]
-      @category = Category.find(params[:category_id])
-      @recipe.categories << @category
-    end
-    if @recipe.save
-      redirect_to @recipe
+    @recipe = Recipe.create(recipe_params)
+    @ingredients = Ingredient.all
+    if @recipe.persisted?
+      redirect_to recipe_path(@recipe)
     else
+      3.times do |i|
+        @ingredient = @recipe.ingredients.build
+      end
       render 'new'
     end
   end
@@ -46,10 +39,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
-    @comment = Comment.new
-    @user = current_user
-    @categories = @recipe.categories
+    @comment = @recipe.comments.build
   end
 
   def destroy
@@ -64,6 +54,6 @@ class RecipesController < ApplicationController
 	end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :image, category_ids: [], ingredients_attributes: [:id, :name], directions_attributes: [:id, :step], recipe_ingredients_attributes: [:quantity])
+    params.require(:recipe).permit(:title, :description, :instructions, :image, category_ids: [], recipe_ingredients_attributes: [:id, :quantity, :_destroy], ingredients_attributes: [:id, :name, :quantity, :_destroy])
   end
 end

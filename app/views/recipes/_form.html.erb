@@ -1,7 +1,7 @@
-<%= simple_form_for [@category, @recipe] do |f| %>
+<%= form_for @recipe, html: { miltipart: true } do |f| %>
   <% if @recipe.errors.any? %>
     <p>
-      <%= @recipe.errors.count %> prevented your recipe from being saved.
+      <%= @recipe.errors.count %> error(s) prevented your recipe from being saved.
     </p>
   <% end %>
   <br />
@@ -17,14 +17,14 @@
 
   <div class='form-new'>
     Title: <%= f.text_field :title %>
-    Directions: <%= f.text_area :description %>
-    <%= f.input :image %>
+    <br />
+    Description: <%= f.text_area :description %>
+    <br />
+    <%= f.file_field :image %>
+    <br />
+    Instructions: <%= f.text_area :instructions, rows: 8 %>
   </div>
 
-  <br />
-    <h3>Category:</h3>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :title %>
-  <br />
 
   <div class="row">
     <div class='col-md-6'>
@@ -32,36 +32,15 @@
         <h3>Ingredients:</h3>
       </div>
       <div id="ingredients">
+        <%=f.fields_for :ingredients do |ff| %>
 
-        <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
-          Ingredient: <%= ingredients_fields.text_field :name %>
-          <br />
-          <%= ingredients_fields.fields_for :recipe_ingredients, @recipe.recipe_ingredients.build do |fff| %>
-            Quantity: <%= fff.text_field :quantity %>
-          <% end %>
-        <% end %>
-        <br />
+          <%=ff.label :name %>
+          <%=ff.text_field :name, value: " "%> <br><br>
 
-        <%= f.fields_for :ingredients, @recipe.ingredients.build do |ingredients_fields| %>
-          Ingredient: <%= ingredients_fields.text_field :name %>
-          <br />
-        <% end %>
-      </div>
-    </div>
+          <%=ff.label :quantity%>
+          <%=ff.text_field :quantity, value: " "%><br><br>
+        <%end%>
 
-    <div class='directions col-md-4'>
-      <div class="directions-title">
-        <h3>Directions:</h3>
-      </div>
-      <div id="directions">
-        <%= f.fields_for :directions, @recipe.directions.build do |directions_fields| %>
-          Step: <%= directions_fields.text_field :step %>
-          <br />
-        <% end %>
-        <%= f.fields_for :directions, @recipe.directions.build do |directions_fields| %>
-          Step: <%= directions_fields.text_field :step %>
-          <br />
-        <% end %>
       </div>
     </div>
   </div>
