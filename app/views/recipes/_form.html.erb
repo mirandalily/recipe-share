@@ -25,6 +25,10 @@
     Instructions: <%= f.text_area :instructions, rows: 8 %>
   </div>
 
+  <div class='categories'>
+    <h3>Category:</h3>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :title %>
+  </div>
 
   <div class="row">
     <div class='col-md-6'>
@@ -32,19 +36,19 @@
         <h3>Ingredients:</h3>
       </div>
       <div id="ingredients">
-        <%=f.fields_for :ingredients do |ff| %>
+        <%= f.fields_for :ingredients do |ff| %>
 
-          <%=ff.label :name %>
-          <%=ff.text_field :name, value: " "%> <br><br>
+          <%= ff.label :name %>
+          <%= ff.text_field :name %>
 
-          <%=ff.label :quantity%>
-          <%=ff.text_field :quantity, value: " "%><br><br>
-        <%end%>
+          <%= ff.label :quantity %>
+          <%= ff.text_field :quantity %>
 
+        <% end %>
       </div>
     </div>
   </div>
 
-  <%= f.button :submit, class: 'btn-primary form-submit' %>
+  <%= f.button :submit, class: ' btn btn-primary form-submit' %>
 
 <% end %>

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916221224) do
+ActiveRecord::Schema.define(version: 20160928213715) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -21,21 +27,20 @@ ActiveRecord::Schema.define(version: 20160916221224) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
-    t.integer  "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "ingredients", ["recipe_id"], name: "index_ingredients_on_recipe_id"
+  create_table "recipe_categories", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "recipe_id"
+  end
 
   create_table "recipe_ingredients", force: :cascade do |t|
     t.integer "ingredient_id"
     t.integer "recipe_id"
     t.string  "quantity"
   end
-
-  add_index "recipe_ingredients", ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
-  add_index "recipe_ingredients", ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
 
   create_table "recipes", force: :cascade do |t|
     t.string   "title"
@@ -48,14 +53,6 @@ ActiveRecord::Schema.define(version: 20160916221224) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-  end
-
-  create_table "user_comments", force: :cascade do |t|
-    t.integer  "comment_id"
-    t.integer  "recipe_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

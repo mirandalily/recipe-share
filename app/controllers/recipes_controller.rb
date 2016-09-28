@@ -4,21 +4,34 @@ class RecipesController < ApplicationController
   before_action :set_user, only:[:index,:show]
 
   def index
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @recipes = @category.recipes
+      @user_recipes = current_user.recipes
+    else
       @user_recipes = current_user.recipes
       @recipes = Recipe.recent.all
+    end
   end
 
   def new
     @recipe = Recipe.new
-    @recipe.ingredients.build
-    @ingredients = Ingredient.all
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+    end
+    3.times do |i|
+      @ingredient = @recipe.ingredients.build
+    end
   end
 
   def create
     @recipe = Recipe.create(recipe_params)
-    @ingredients = Ingredient.all
-    if @recipe.persisted?
-      redirect_to recipe_path(@recipe)
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @recipe.categories << @category
+    end
+    if @recipe.save
+      redirect_to @recipe
     else
       3.times do |i|
         @ingredient = @recipe.ingredients.build
@@ -31,7 +44,8 @@ class RecipesController < ApplicationController
   end
 
   def update
-    if @recipe.update(recipe_params)
+    @recipe.update(recipe_params)
+    if @recipe.save
       redirect_to @recipe
     else
       render 'edit'
@@ -39,7 +53,9 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @comment = @recipe.comments.build
+    @comment = Comment.new
+    @user = current_user
+    @categories = @recipe.categories
   end
 
   def destroy
@@ -51,9 +67,11 @@ class RecipesController < ApplicationController
 
 	def set_recipe
 		@recipe = Recipe.find(params[:id])
+    @ingredient = @recipe.ingredients.build
+    return @recipe, @ingredient
 	end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :instructions, :image, category_ids: [], recipe_ingredients_attributes: [:id, :quantity, :_destroy], ingredients_attributes: [:id, :name, :quantity, :_destroy])
+    params.require(:recipe).permit(:title, :description, :instructions, :image, category_ids: [], recipe_ingredients_attributes: [:id, :quantity, :_destroy], ingredients_attributes: [:id, :name, :quantity, :_destroy], comments_attributes: [:content])
   end
 end

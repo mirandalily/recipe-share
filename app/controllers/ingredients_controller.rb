@@ -17,7 +17,6 @@ class IngredientsController < ApplicationController
       @ingredient = @recipe.ingredients.build
     end
     @ingredient = Ingredient.new
-    session[:referrer] = request.referer
   end
 
   def create
@@ -72,3 +71,5 @@ class IngredientsController < ApplicationController
     end
     return @recipe, @ingredient
   end
+
+end

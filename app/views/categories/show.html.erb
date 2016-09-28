@@ -1,0 +1,26 @@
+<div class="categories-main">
+  <% if user_signed_in? %>
+      <% @recipes.each_slice(3) do |all_recipes| %>
+        <div class="row">
+          <% all_recipes.each do |recipe| %>
+            <div class="col-md-4">
+              <div class="recipe">
+                <div class="image_wrapper">
+                  <%= link_to recipe do %>
+                    <%= image_tag recipe.image.url(:medium) %>
+                  <% end %>
+                </div>
+                <h4>
+                  <%= link_to recipe.title, recipe %>
+                </h4>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+  <% else %>
+    <h3>Oops, looks like you're not signed in...</h3>
+    <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-default' %>
+    <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-default' %>
+  <% end %>
+</div>
