@@ -1,8 +1,9 @@
 <div class="index-main">
   <% if user_signed_in? %>
     <div class='your-recipes'>
-      <h3>Your Recipes:</h3> <%= link_to "create a new recipe", new_recipe_path, class: 'btn btn-default' %>
-    </div>
+      <h3>Your Recipes:</h3>
+      <!-- <%= link_to "create a new recipe", new_recipe_path, class: 'btn btn-default' %> -->
+
     <br />
 
     <% @user_recipes.each_slice(3) do |recipes| %>
@@ -13,6 +14,9 @@
               <div class="image_wrapper">
                 <%= link_to recipe do %>
                   <%= image_tag recipe.image.url(:medium) %>
+                  <div class='eyeicon'>
+
+                  </div>
                 <% end %>
               </div>
               <h4>
@@ -23,12 +27,12 @@
         <% end %>
       </div>
     <% end %>
-
+  </div>
     <br />
 
     <div class="all-recipes">
-      <h3>All Recipes</h3>
-    </div>
+      <h3>All Recipes:</h3>
+
     <br />
 
     <% if current_user != @user %>
@@ -50,6 +54,7 @@
           <% end %>
         </div>
       <% end %>
+      </div>
     <% end %>
   <% else %>
     <h3>Oops, looks like you're not signed in...</h3>

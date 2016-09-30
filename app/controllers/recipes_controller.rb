@@ -15,7 +15,7 @@ class RecipesController < ApplicationController
   end
 
   def new
-    @recipe = Recipe.new
+    @recipe = current_user.recipes.build
     if params[:category_id]
       @category = Category.find(params[:category_id])
     end
@@ -25,7 +25,7 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.create(recipe_params)
+    @recipe = current_user.recipes.build(recipe_params)
     if params[:category_id]
       @category = Category.find(params[:category_id])
       @recipe.categories << @category

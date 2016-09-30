@@ -16,191 +16,108 @@
 
  @import 'bootstrap-sprockets';
  @import 'bootstrap';
+ @import 'https://fonts.googleapis.com/css?family=Reenie+Beanie';
+ @import 'https://fonts.googleapis.com/css?family=Lato:300,400';
 
- .directions {
-   float: right;
- }
- .ingredients {
-    float: left;
-}
 
-.form-submit {
-   clear: both;
-   float: left;
-   margin-top: 50px;
-   margin-bottom: 30px;
-}
-
-.btn-primary {
-   background: white;
-   color: black;
-   border-color: #ADADAD;
-}
-.btn {
-   background: white;
-   color: black;
-   border-color: #ADADAD;
-}
-
-.back {
-   margin-left: 10px;
-   margin-top: 30px;
-   float: left;
-}
-
-.new-recipe-title {
-   margin-bottom: 30px;
-}
-
-.main-content {
-   margin-left: 250px;
-}
-
-.show-title-image {
-   float:left;
-}
-
-.show-title-image img{
-   padding-top: 15px;
-}
-
-.show-categories {
-   float: right;
-   position:relative;
-   margin-top: 12%;
-   left:-40%;
-   text-align:left;
-}
-
-.show-ingredients-directions {
-   clear:both;
-}
-
-.show-ingredients {
-   float:left;
-}
-
-.show-directions {
-   float:right;
-   position: relative;
-   left: -5%;
-   text-align:left;
-   margin-top: -2%;
-}
-
-.show-description {
-   clear: both;
-   padding-top: 20px;
-}
-
-.show-links {
-   clear:both;
-   padding-top: 20px;
-}
-
-.form-new input {
-   margin-left: 10px;
-   margin-top: 10px;
-   border-radius: 3px;
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   margin-bottom: 20px
-}
-
-.form-new #recipe_title {
-   border: 1px solid #ADADAD;
-}
-
-.form-new textarea {
-   margin-left: 10px;
-   margin-bottom: 20px;
-   border-radius: 3px;
-   vertical-align: middle;
-   border: 1px solid #ADADAD;
-}
-
-label.collection_check_boxes {
-  float: none;
-  display: inline-block;
-  margin: 15px;
-  margin-left: 2px;
-}
-
-.directions-title {
-   margin-left: -20%;
-}
-
-#ingredients, #directions {
-	margin-bottom: 60px;
-	ul, ol {
-		padding-left: 18px;
-		li {
-			padding: 1em 0;
-			border-bottom: 1px solid #EAEAEA;
-		}
-	}
-}
-
-.form-inline {
-	margin-top: 15px;
-}
-.form-input {
-	width: 30% !important;
-	float: left;
-}
-
-.directions-text-box{
-   margin-left: -20%;
-   width: 55% !important;
-}
-
-.remove {
-   margin-left: 10px;
-}
-
-.add-button {
-	margin-top: 25px;
-}
-
-.add-step {
-   margin-left: -20%;
-}
-
-.row {
-   padding-left: 12%;
-   padding-top: 2%;
-}
-
-.col-md-4 a{
-   text-decoration: none;
-   color: black;
-}
-
-.col-md-4 a:hover{
-   color: blue;
-}
-
-.your-recipes {
-   padding-left: 12%;
-}
-
-.all-recipes {
-   padding-left: 12%;
-}
+html,body { height:100%; }
 
 .navbar {
-   text-transform: uppercase;
-   font-weight: 100;
-   letter-spacing: .2em
+  background: white;
+  border: none;
 }
 
-.navbar h1{
-   font-size: 1.5em;
-   margin-bottom: -35px;
-   font-weight: 100;
-   letter-spacing: .2em
+.navbar h1 {
+  text-align: center;
+  font-family: 'Reenie Beanie', cursive;
+  font-weight: light;
+  padding-top: 5%;
 }
 
-.index-main h3, h4 {
-   font-weight: 200;
+.navbar h1 a {
+  text-decoration: none;
+  color: black;
+}
+
+div.logo{
+  content:url('colormixer.png');
+  height: 50px;
+  width: 50px;
+  margin: 0 auto;
+}
+
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+    > li {
+      float: none;
+      display: inline-block;
+      margin-top: 50px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+  }
+
+div.index-main {
+  margin: 0 auto;
+  padding-left: 15%;
+  padding-top: 5%;
+}
+
+div.index-main img {
+  transition: opacity .5s ease-out;
+  -moz-transition: opacity .5s ease-out;
+  -webkit-transition: opacity .5s ease-out;
+}
+div.index-main img:hover {
+  opacity: .5;
+}
+
+div.your-recipes h3{
+  font-family: 'Reenie Beanie', cursive;
+  font-weight: light;
+  text-transform: uppercase;
+}
+
+div.your-recipes h4 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 15px;
+  margin-top: -1px;
+}
+
+div.your-recipes h4 a {
+  color: black;
+  text-decoration: none;
+  letter-spacing: .2em;
+  font-size: .7em;
+}
+
+div.all-recipes h3 {
+  font-family: 'Reenie Beanie', cursive;
+  font-weight: light;
+  text-transform: uppercase;
+}
+
+div.all-recipes h4 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 15px;
+  margin-top: -1px;
+}
+
+div.all-recipes h4 a {
+  color: black;
+  text-decoration: none;
+  letter-spacing: .2em;
+  font-size: .7em;
+}
+
+div.recipe {
+  background: #F7F7F7;
 }
