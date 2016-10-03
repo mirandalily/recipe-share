@@ -1,6 +1,6 @@
-<div class='main-content'>
+<div class='main-content-show'>
   <div class='show-title-image'>
-    <h3><%= @recipe.title%></h2>
+    <h2><%= @recipe.title%></h2>
     <%= image_tag @recipe.image.url(:medium), class: "recipe_image" %>
   </div>
 
@@ -29,7 +29,7 @@
   <div class='show-ingredients-directions'>
 
     <div class='show-ingredients'>
-      <h3>Ingredients</h3>
+      <h3>Ingredients:</h3>
       <ul>
         <% @recipe.recipe_ingredients.each do |recipe_ingredient|%>
            <li><%= recipe_ingredient.quantity %> <%= recipe_ingredient.ingredient.name %></li>
@@ -42,26 +42,28 @@
   </div>
 
   <div class='show-links'>
-    <%= link_to "Back", root_path, class: "btn btn-default" %>
+    <%= link_to "back", root_path, class: "btn btn-default" %>
     <% if current_user == @recipe.user %>
-      <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-default" %>
-      <%= link_to "Delete", recipe_path(@recipe), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
+      <%= link_to "edit", edit_recipe_path(@recipe), class: "btn btn-default" %>
+      <%= link_to "delete", recipe_path(@recipe), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
     <% end %>
   </div>
-</div>
 
-<div class='comments'>
-  <%= form_for @comment do |f| %>
-    <%= f.text_field :content, placeholder: 'Leave a comment...' %>
-    <%= f.hidden_field :recipe_id, value: @recipe.id %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.submit 'AddComment' %>
-  <% end %>
-</div>
 
-<div class='recipe_comments'>
-  <% @recipe.comments.each do |comment| %>
-    <p><%= comment.user.email %> said:</p>
-    <p><%= comment.content %></p>
-  <% end %>
+  <div class='add-comment'>
+    <h4>Comments: </h4>
+    <%= form_for @comment do |f| %>
+      <%= f.text_field :content, placeholder: 'Leave a comment...' %>
+      <%= f.hidden_field :recipe_id, value: @recipe.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.submit 'add comment' %>
+    <% end %>
+  </div>
+
+  <div class='recipe-comments'>
+    <% @recipe.comments.each do |comment| %>
+      <h5><%= comment.user.email %> said:</h5>
+      <p><%= comment.content %></p>
+    <% end %>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<%= form_for @recipe, html: { miltipart: true } do |f| %>
+<%= form_for [@category, @recipe] do |f| %>
   <% if @recipe.errors.any? %>
     <p>
       <%= @recipe.errors.count %> error(s) prevented your recipe from being saved.
@@ -16,39 +16,42 @@
   <br />
 
   <div class='form-new'>
-    Title: <%= f.text_field :title %>
-    <br />
-    Description: <%= f.text_area :description %>
-    <br />
-    <%= f.file_field :image %>
-    <br />
-    Instructions: <%= f.text_area :instructions, rows: 8 %>
-  </div>
+
+      <%= f.text_field :title, placeholder: 'Title'%>
+
+      <%= f.text_area :description, placeholder: 'Description'%>
+
+      <%= f.file_field :image %>
+
+      <%= f.text_area :instructions, placeholder: 'Instructions', rows: 8 %>  </div>
 
   <div class='categories'>
     <h3>Category:</h3>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :title %>
+    <p>
+      <%= f.collection_check_boxes :category_ids, Category.all, :id, :title %>
+    </p>
   </div>
 
   <div class="row">
     <div class='col-md-6'>
       <div class="ingredients-title">
         <h3>Ingredients:</h3>
-      </div>
-      <div id="ingredients">
-        <%= f.fields_for :ingredients do |ff| %>
+        <div id="ingredients">
+          <%= f.fields_for :ingredients do |ff| %>
 
-          <%= ff.label :name %>
-          <%= ff.text_field :name %>
+            <%= ff.label :name %>
+            <%= ff.text_field :name %>
 
-          <%= ff.label :quantity %>
-          <%= ff.text_field :quantity %>
+            <%= ff.label :quantity %>
+            <%= ff.text_field :quantity %>
 
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 
-  <%= f.button :submit, class: ' btn btn-primary form-submit' %>
+  <%= f.button :submit, class: 'btn btn-primary form-submit' %>
 
 <% end %>
+</div>
