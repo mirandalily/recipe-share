@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!
-  before_action :set_user, only:[:index,:show]
+  before_action :set_user, only:[:index, :show, :edit, :update]
 
   def index
     if params[:category_id]
@@ -41,11 +41,12 @@ class RecipesController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
-    @recipe.update(recipe_params)
-    if @recipe.save
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
       redirect_to @recipe
     else
       render 'edit'

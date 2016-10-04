@@ -1,14 +1,13 @@
 <div class="categories-main">
   <% if user_signed_in? %>
+      <h3><%=@category.title%> Recipes</h3>
       <% @recipes.each_slice(3) do |all_recipes| %>
         <div class="row">
           <% all_recipes.each do |recipe| %>
             <div class="col-md-4">
               <div class="recipe">
                 <div class="image_wrapper">
-                  <%= link_to recipe do %>
-                    <%= image_tag recipe.image.url(:medium) %>
-                  <% end %>
+                  <%= image_tag recipe.image.url(:medium) %>                  
                 </div>
                 <h4>
                   <%= link_to recipe.title, recipe %>

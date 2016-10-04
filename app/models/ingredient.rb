@@ -9,4 +9,8 @@ class Ingredient < ActiveRecord::Base
     self.recipe_ingredients.find_by(recipe_id: recipe_id).quantity
   end
 
+  def empty?
+    attributes.values.compact.empty?
+  end
+
 end

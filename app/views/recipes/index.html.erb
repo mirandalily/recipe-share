@@ -2,8 +2,6 @@
   <% if user_signed_in? %>
     <div class='your-recipes'>
       <h3>Your Recipes:</h3>
-      <!-- <%= link_to "create a new recipe", new_recipe_path, class: 'btn btn-default' %> -->
-
     <br />
 
     <% @user_recipes.each_slice(3) do |recipes| %>
