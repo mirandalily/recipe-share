@@ -1,8 +1,10 @@
-<% if !@recipe.id.nil? %>
-  <% @recipe.recipe_ingredients.each do |current_ingredient| %>
-    <li>
-      <%= current_ingredient.ingredient.name %> <%= current_ingredient.quantity %>
-      <%= link_to 'delete', recipe_ingredient_path(current_ingredient.recipe_id, current_ingredient.ingredient_id), :method => :delete, class: 'delete-ingredient' %>
-    </li>
+<div class='current-ingredients'>
+  <% if !@recipe.id.nil? %>
+    <% @recipe.recipe_ingredients.each do |current_ingredient| %>
+      <li>
+        <%= current_ingredient.ingredient.name %> <%= current_ingredient.quantity %>
+        <%= link_to 'delete', recipe_ingredient_path(current_ingredient.recipe_id, current_ingredient.ingredient_id), :method => :delete, class: 'delete-ingredient' %>
+      </li>
+    <% end %>
   <% end %>
-<% end %>
+</div>
