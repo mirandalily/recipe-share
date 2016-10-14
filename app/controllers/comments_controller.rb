@@ -4,11 +4,17 @@ class CommentsController < ActionController::Base
 
   def create
     @recipe = Recipe.find_by(id: comment_params[:recipe_id])
-    @comment = @recipe.comments.create(comment_params)
-    redirect_to @recipe
+    @comment = current_user.comments.create(comment_params)
+    @recipe.comments << @comment
+    respond_to do |format|
+      format.html {redirect_to @recipe}
+      format.json {render json: {content: @comment.content}}
+
   end
 
   def show
+    render 'comments/show', layout: false
+    render json: @comments
   end
 
 

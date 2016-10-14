@@ -52,7 +52,7 @@
 
   <div class='add-comment'>
     <h4>Comments: </h4>
-    <%= form_for @comment do |f| %>
+    <%= form_for @comment, html: {id: 'comments-form'} remote: true do |f| %>
       <%= f.text_field :content, placeholder: 'Leave a comment...' %>
       <%= f.hidden_field :recipe_id, value: @recipe.id %>
       <%= f.hidden_field :user_id, value: current_user.id %>
@@ -60,10 +60,8 @@
     <% end %>
   </div>
 
+
   <div class='recipe-comments'>
-    <% @recipe.comments.each do |comment| %>
-      <h5><%= comment.user.email %> said:</h5>
-      <p><%= comment.content %></p>
-    <% end %>
+    <%= render 'comments/show' %>
   </div>
 </div>

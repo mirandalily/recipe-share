@@ -54,9 +54,14 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @comment = Comment.new
+    @comment = current_user.comments.build
+    @comments = @recipe.comments
     @user = current_user
     @categories = @recipe.categories
+    respond_to do |format|
+      format.html
+      format.json { render json: @recipe.to_json(include: {comments: {only: [:content, :user_id]}})}
+    end
   end
 
   def destroy
