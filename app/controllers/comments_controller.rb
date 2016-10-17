@@ -3,13 +3,13 @@ class CommentsController < ActionController::Base
 
 
   def create
-    @recipe = Recipe.find_by(id: comment_params[:recipe_id])
-    @comment = current_user.comments.create(comment_params)
+    @recipe = Recipe.find(params[:comment][:recipe_id].to_i)
+    @comment = current_user.comments.build(comment_params)
     @recipe.comments << @comment
     respond_to do |format|
       format.html {redirect_to @recipe}
-      format.json {render json: {content: @comment.content}}
-
+      format.json {render :json => {:content => @comment.content}}
+    end
   end
 
   def show

@@ -8,7 +8,7 @@
       <div class="row">
         <% recipes.each do |recipe| %>
           <div class="col-md-4">
-            <div class="recipe">
+            <div class="recipe" data-id="<%= recipe.id %>">
               <div class="image_wrapper">
                 <%= link_to recipe do %>
                   <%= image_tag recipe.image.url(:medium) %>

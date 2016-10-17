@@ -1,6 +1,4 @@
-<div id='comment'>
-  <% @recipe.comments.each do |comment| %>
-    <h5><%= comment.user.email %> said:</h5>
-    <p><%= comment.content %></p>
-  <% end %>
-</div>
+<% @recipe.comments.each do |comment| %>
+  <%= comment.user.email %> said:
+  <%= comment.content %>
+<% end %>

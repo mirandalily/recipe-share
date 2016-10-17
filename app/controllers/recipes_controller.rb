@@ -54,13 +54,14 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @ingredients = @recipe.ingredients
     @comment = current_user.comments.build
     @comments = @recipe.comments
     @user = current_user
     @categories = @recipe.categories
     respond_to do |format|
       format.html
-      format.json { render json: @recipe.to_json(include: {comments: {only: [:content, :user_id]}})}
+      format.json {render :json => @recipe.to_json(:include => [{:ingredients => {:only => [:id, :name]}}, {:comments => {:only => [:id, :content, :user_id]}}])}
     end
   end
 
