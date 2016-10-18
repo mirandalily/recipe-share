@@ -1,24 +1,5 @@
-<% if @comment.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(@comment.errors.count, "error") %>
-      Oops, the following prohibited your comment from being saved:
-    </h2>
-
-    <ul>
-      <% @comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<%=form_for(@comment) do |f| %>
-  <%=f.label :content%><br>
-  <%=f.text_area :content, rows: 10, cols:30%><br>
-
-  <%=f.hidden_field :recipe_id, value: @recipe.id if !@comment.recipe %>
-  <%=f.hidden_field :user_id, value: current_user.id if !@comment.user%>
-
-  <%=f.submit%>
-<%end%>
+<ul>
+  <% @comments.each do |comment| %>
+  <li><%= comment.content %></li>
+  <% end %>
+</ul>

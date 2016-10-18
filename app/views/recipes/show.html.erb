@@ -52,7 +52,7 @@
 
   <div class='add-comment'>
     <h4>Comments: </h4>
-    <%= form_for @comment, html: {id: 'comments-form'}, remote: true do |f| %>
+    <%= form_for([@recipe, @comment]) do |f| %>
       <%= f.text_field :content, placeholder: 'Leave a comment...' %>
       <%= f.hidden_field :recipe_id, value: @recipe.id %>
       <%= f.hidden_field :user_id, value: current_user.id %>
@@ -61,7 +61,7 @@
   </div>
 
 
-  <div class='recipe-comments'>
-    <%= render 'comments/show' %>
+  <div id='comments'>
+    <%= render 'comments/comments' %>
   </div>
 </div>

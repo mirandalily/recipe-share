@@ -41,12 +41,12 @@ class RecipesController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
     @recipe = Recipe.find(params[:id])
-    if @recipe.update(recipe_params)
+    @recipe.update(recipe_params)
+    if @recipe.persisted?
       redirect_to @recipe
     else
       render 'edit'

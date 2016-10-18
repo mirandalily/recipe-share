@@ -1,36 +1,25 @@
-$(document).ready(function(){
-  // $(".recipe").on("click", function(){
-  //   var id = $(this).attr("data-id");
-  //   recipeInformation(id);
-  //   $('#recipe-info-'+id).slideToggle('fast');
-  //   e.stopPropagation();
-  // });
-
-  $("#comments-form").submit(function() {
-    var values = $(this).serialize();
+$(function() {
+  $("#new_comment").on("submit", function(e) {
     $.ajax({
       type: "POST",
-      url: $(this).attr("action"),
-      data: values,
-      dataType: "JSON"
-    }).success(function(json) {
-      console.log("success", json);
-      $("#recipe-comments").append("<p>" + json.content + "</p>" );
+      url: this.action,
+      data: $(this).serialize(),
+      success: function(response) {
+        $("#comment_content").val("");
+        var $ul = $("div#comments ul")
+        $ul.append(response);
+      }
     });
-    return false;
+    e.preventDefault();
   });
+
+
+  // $.get(this.url).success(function(json) {
+  //   debugger
+  //   var $ul = $("div#comments p")
+  //   $ul.html("") //empties div
+  //   json.forEach(function(comment) {
+  //     $ul.append("<li>" + comment.content + "</li>")
+  //   })
+  // })
 });
-
-function Recipe(id, title, description, directions, comments) {
-  this.title = title;
-  this.description = description;
-  this.directions = directions;
-  this.comments = comments;
-}
-
-function recipeInformation(id) {
-  $.get("recipes/" + id + ".json", function(data) {
-    var currentRecipe = new Recipe(id, data.name, data.description, data.directions, data.comments)
-  });
-  return false;
-}
