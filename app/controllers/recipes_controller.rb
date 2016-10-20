@@ -7,10 +7,12 @@ class RecipesController < ApplicationController
     if params[:category_id]
       @category = Category.find(params[:category_id])
       @recipes = @category.recipes
-      @user_recipes = current_user.recipes
     else
-      @user_recipes = current_user.recipes
       @recipes = Recipe.recent.all
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: @recipes }
+      end
     end
   end
 
@@ -60,8 +62,8 @@ class RecipesController < ApplicationController
     @user = current_user
     @categories = @recipe.categories
     respond_to do |format|
-      format.html
-      format.json {render :json => @recipe.to_json(:include => [{:ingredients => {:only => [:id, :name]}}, {:comments => {:only => [:id, :content, :user_id]}}])}
+      format.html { render :show }
+      format.json { render json: @recipe, serializer: RecipeSerializer }
     end
   end
 

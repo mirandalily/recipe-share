@@ -16,6 +16,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem "nilify_blanks"
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'byebug'

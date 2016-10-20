@@ -1,54 +1,32 @@
 <div class="index-main">
   <% if user_signed_in? %>
-    <div class='your-recipes'>
-      <h3>Your Recipes:</h3>
-    <br />
-
-    <% @user_recipes.each_slice(3) do |recipes| %>
-      <div class="row">
-        <% recipes.each do |recipe| %>
-          <div class="col-md-4">
-            <div class="recipe recipe-card" data-id="<%= recipe.id %>">
-              <div class="image_wrapper">
-                <%= link_to recipe do %>
-                  <%= image_tag recipe.image.url(:medium) %>
-                <% end %>
-              </div>
-              <h4>
-                <%= link_to recipe.title, recipe %>
-              </h4>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-    <br />
-
     <div class="all-recipes">
       <h3>All Recipes:</h3>
 
-    <br />
+      <br />
 
-    <% if current_user != @user %>
-      <% @recipes.each_slice(3) do |all_recipes| %>
-        <div class="row">
-          <% all_recipes.each do |recipe| %>
-            <div class="col-md-4">
-              <div class="recipe">
-                <div class="image_wrapper">
-                  <%= link_to recipe do %>
-                    <%= image_tag recipe.image.url(:medium) %>
-                  <% end %>
+      <% if current_user != @user %>
+        <% @recipes.each_slice(3) do |all_recipes| %>
+          <div class="row">
+            <% all_recipes.each do |recipe| %>
+              <div class="col-md-4">
+                <div class="recipe">
+                  <div class="image_wrapper">
+                    <%= link_to recipe do %>
+                      <%= image_tag recipe.image.url(:medium) %>
+                    <% end %>
+                  </div>
+                  <h4>
+                    <%= link_to recipe.title, recipe %>
+                  </h4>
+                  <div class='recipe-comments'>
+                    
+                  </div>
                 </div>
-                <h4>
-                  <%= link_to recipe.title, recipe %>
-                </h4>
               </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% else %>
