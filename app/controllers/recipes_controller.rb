@@ -7,7 +7,9 @@ class RecipesController < ApplicationController
     if params[:category_id]
       @category = Category.find(params[:category_id])
       @recipes = @category.recipes
+      @user_recipes = current_user.recipes
     else
+      @user_recipes = current_user.recipes
       @recipes = Recipe.recent.all
       respond_to do |format|
         format.html { render :index }

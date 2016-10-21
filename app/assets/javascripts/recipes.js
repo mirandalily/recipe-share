@@ -1,31 +1,25 @@
-var Recipe = function(recipe) {
-  this.id = recipe.id;
-  this.title = recipe.title;
-  this.comments = recipe.comments;
+function Recipe = function(id, name, comments) {
+  this.id = id;
+  this.title = title;
+  this.comments = comments;
 }
 
 Recipe.prototype.numberOfComments = function(){
-  var output = '<a href="/recipes/' + this.id + '" class="js-comments-show" id="comments-' + this.id + '">';
-  var output += this.comments + ' comments';
-  var output += '</a>';
-  return output
+  var comments = this.comments;
+  return comments;
 }
 
-
-
-function indexRecipeInfo(id) {
-  $.get("recipes/" + id + ".json", function(data) {
-    var currentRecipe = new Recipe(id, data.title, data.description, data.comments)
-    var recipeComments = currentRecipe.numberOfComments();
-    $(".recipe-comments" + id).append(recipeComments + ' comments');
+function getRecipeComments(id) {
+  $.get("/recipes" + ".json", function(data){
+    var recipe = new Recipe(id, data.name, data.description, data.comments);
+    var recipeComments = recipe.numberOfComments();
+    $(".recipeComments_" + id).text(recipeComments + ' comments');
   });
   return false;
 }
 
 
-var setupRecipes = function() {
-  $.get('/recipes.json').done(function(data) {
-    var recipes = indexRecipeInfo();
-    recipes = '<div class="com_num">'
-  })
-}
+
+$(function(){
+  getRecipeComments(id);
+})

@@ -1,5 +1,32 @@
 <div class="index-main">
   <% if user_signed_in? %>
+    <div class='your-recipes'>
+        <h3>Your Recipes:</h3>
+      <br />
+
+      <% @user_recipes.each_slice(3) do |recipes| %>
+        <div class="row">
+          <% recipes.each do |recipe| %>
+            <div class="col-md-4">
+              <div class="recipe">
+                <div class="image_wrapper">
+                  <%= link_to recipe do %>
+                    <%= image_tag recipe.image.url(:medium) %>
+                    <div class='eyeicon'>
+
+                    </div>
+                  <% end %>
+                </div>
+                <h4>
+                  <%= link_to recipe.title, recipe %>
+                </h4>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <br />
     <div class="all-recipes">
       <h3>All Recipes:</h3>
 
@@ -19,9 +46,7 @@
                   <h4>
                     <%= link_to recipe.title, recipe %>
                   </h4>
-                  <div class='recipe-comments'>
-                    
-                  </div>
+                  <span class="recipeComments_<%= recipe.id%>"></span>
                 </div>
               </div>
             <% end %>
