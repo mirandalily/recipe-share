@@ -1,25 +1,29 @@
-function Recipe = function(id, name, comments) {
-  this.id = id;
-  this.title = title;
-  this.comments = comments;
-}
-
-Recipe.prototype.numberOfComments = function(){
-  var comments = this.comments;
-  return comments;
-}
-
-function getRecipeComments(id) {
-  $.get("/recipes" + ".json", function(data){
-    var recipe = new Recipe(id, data.name, data.description, data.comments);
-    var recipeComments = recipe.numberOfComments();
-    $(".recipeComments_" + id).text(recipeComments + ' comments');
-  });
-  return false;
-}
-
-
-
 $(function(){
-  getRecipeComments(id);
-})
+  $(".js-more").on("click", function() {
+    var id = $(this).attr('data-id');
+    getRecipe(id);
+  });
+});
+
+function Recipe(id, title, description, comments) {
+  this.title = title;
+  this.description = description;
+  this.comments = comments;
+
+  this.descriptionInfo = function() {
+    var description = this.description;
+    return description;
+  }
+}
+
+
+
+function getRecipe(id) {
+  $.get("recipes/" + id + ".json", function(data) {
+    console.log(data)
+    var recipe = new Recipe(id, data.name, data.description, data.comments)
+    console.log(recipe)
+    var description = recipe.descriptionInfo();
+    $(".recipeDescription_" + id).text(description);
+  });
+}

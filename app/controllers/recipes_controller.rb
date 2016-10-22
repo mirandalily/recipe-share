@@ -9,11 +9,12 @@ class RecipesController < ApplicationController
       @recipes = @category.recipes
       @user_recipes = current_user.recipes
     else
+      @recipe = Recipe.all
       @user_recipes = current_user.recipes
       @recipes = Recipe.recent.all
       respond_to do |format|
         format.html { render :index }
-        format.json { render json: @recipes }
+        format.json { render json: @recipe }
       end
     end
   end
@@ -65,7 +66,7 @@ class RecipesController < ApplicationController
     @categories = @recipe.categories
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @recipe, serializer: RecipeSerializer }
+      format.json { render json: @recipe }
     end
   end
 

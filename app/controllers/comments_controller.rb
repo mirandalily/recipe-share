@@ -7,8 +7,8 @@ class CommentsController < ActionController::Base
     @recipe = Recipe.find(params[:recipe_id])
     @comments = @recipe.comments
     respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @comments, serializer: CommentSerializer }
+      format.html { render :index }
+      format.json { render json: @comments }
     end
   end
 
@@ -32,7 +32,7 @@ class CommentsController < ActionController::Base
     @comments = @recipe.comments
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @comments. serializer: CommentSerializer }
+      format.json { render json: @comments }
     end
   end
 

@@ -46,7 +46,8 @@
                   <h4>
                     <%= link_to recipe.title, recipe %>
                   </h4>
-                  <span class="recipeComments_<%= recipe.id%>"></span>
+                  <button class="js-more" data-id="<%= recipe.id %>">Description</button>
+                  <div class="recipeDescription_<%= recipe.id%>"></div>
                 </div>
               </div>
             <% end %>
