@@ -17,11 +17,10 @@ function Recipe(id, title, description, comments) {
 }
 
 
-
 function getRecipe(id) {
   $.get("recipes/" + id + ".json", function(data) {
     console.log(data)
-    var recipe = new Recipe(id, data.name, data.description, data.comments)
+    var recipe = new Recipe(id, data.recipe.name, data.recipe.description, data.recipe.comments)
     console.log(recipe)
     var description = recipe.descriptionInfo();
     $(".recipeDescription_" + id).text(description);
