@@ -61,7 +61,7 @@ div.logo{
 
   .dividingline{
     border-bottom: 1px solid #CECECE;
-    width: 70%;
+    width: 500px;
     margin: 0 auto;
   }
 
@@ -79,6 +79,10 @@ div.index-main img {
 }
 div.index-main img:hover {
   opacity: .5;
+}
+
+div.your-recipes {
+  width: 94%;
 }
 
 div.your-recipes h3{
