@@ -24,7 +24,6 @@ function getRecipe(id) {
 
   $.get("recipes/" + id + ".json", function(data) {
     var recipe = new Recipe(id, data.recipe.name, data.recipe.description, data.recipe.comments)
-    console.log(recipe)
     var description = recipe.descriptionInfo();
     $(".recipeDescription_" + id).text(description);
   });
