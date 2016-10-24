@@ -18,11 +18,15 @@ function Recipe(id, title, description, comments) {
 
 
 function getRecipe(id) {
+  $('.js-more').on('click', function() {
+    $('.recipeDescription_' + id).stop(true).slideToggle('slow');
+  });
+
   $.get("recipes/" + id + ".json", function(data) {
-    console.log(data)
     var recipe = new Recipe(id, data.recipe.name, data.recipe.description, data.recipe.comments)
     console.log(recipe)
     var description = recipe.descriptionInfo();
     $(".recipeDescription_" + id).text(description);
   });
+
 }
