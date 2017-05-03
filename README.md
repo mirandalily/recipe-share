@@ -16,6 +16,10 @@ $ git clone (repo link)
 
 $ bundle install
 
+$ bundle exec rake db:migrate
+
+$ bundle exec rake db:seed
+
 $ rails s
 
 Then navigate to your localhost address and use the app as you would like.
