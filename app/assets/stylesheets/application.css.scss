@@ -380,23 +380,24 @@ div.categories-main h4 a {
   margin-left: 13.8%;
 }
 
-#newsession h2{
+#newsession h2, #signup h2{
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   text-transform: uppercase;
   font-size: 1.5em;
 }
 
-#newsession .form-inputs {
+#newsession .form-inputs, #signup .form-inputs {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
 }
 
-#newsession input{
+#newsession input, #signup input{
   margin: 10px;
 }
 
-#newsession {
+#newsession, #signup {
   margin-left: 20%;
   margin-top: 5%;
+  margin-bottom: 5%;
 }
