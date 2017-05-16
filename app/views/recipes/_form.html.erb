@@ -46,11 +46,8 @@
             <%= ff.text_field :name %>
 
             <%= ff.label :quantity %>
-            <% if !@recipe.id.nil? %>
-              <%= ff.text_field :quantity %>
-            <% else %>
-               <%= ff.text_field :quantity, value: "#{ff.object.quantity(f.object.id)}" %>
-            <% end %>
+            <%= ff.text_field :quantity %>
+
 
           <% end %>
         </div>
