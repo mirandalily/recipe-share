@@ -38,7 +38,7 @@
         <h3>Ingredients:</h3>
 
         <%= render 'current_recipe_ingredients' %>
-        
+
         <div id="ingredients">
           <%= f.fields_for :ingredients do |ff| %>
 
@@ -49,7 +49,7 @@
             <% if !@recipe.id.nil? %>
               <%= ff.text_field :quantity %>
             <% else %>
-               <%= ff.text_field :quantity, value: "#{ff.object.quantity_for_recipe(f.object.id)}" %>
+               <%= ff.text_field :quantity, value: "#{ff.object.quantity(f.object.id)}" %>
             <% end %>
 
           <% end %>
